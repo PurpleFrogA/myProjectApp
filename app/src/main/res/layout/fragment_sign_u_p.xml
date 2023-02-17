@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUPFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/etConPassSignUpFrag"
+            android:layout_width="225dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="35dp"
+            android:ems="10"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            app:layout_constraintBottom_toTopOf="@+id/signUpButtonFrag"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPasswordSignUpFrag" />
+
+        <EditText
+            android:id="@+id/etEmailSignUpFrag"
+            android:layout_width="225dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="149dp"
+            android:layout_marginBottom="7dp"
+            android:ems="10"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toTopOf="@+id/etPasswordSignUpFrag"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/etPasswordSignUpFrag"
+            android:layout_width="225dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="11dp"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            app:layout_constraintBottom_toTopOf="@+id/etConPassSignUpFrag"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etEmailSignUpFrag" />
+
+        <Button
+            android:id="@+id/signUpButtonFrag"
+            android:layout_width="129dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="26dp"
+            android:text="signup"
+            app:layout_constraintBottom_toTopOf="@+id/tvLoginLinkSignupFrag"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etConPassSignUpFrag" />
+
+        <TextView
+            android:id="@+id/tvLoginLinkSignupFrag"
+            android:layout_width="177dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="233dp"
+            android:text="you have an account? Login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signUpButtonFrag" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

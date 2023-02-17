@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/loginButtonFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="37dp"
+            android:text="login"
+            app:layout_constraintBottom_toTopOf="@+id/resetPassLinkLoginFrag"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPasswordLoginFrag" />
+
+        <EditText
+            android:id="@+id/etEmailLoginFrag"
+            android:layout_width="219dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="177dp"
+            android:layout_marginBottom="21dp"
+            android:ems="10"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toTopOf="@+id/etPasswordLoginFrag"
+            app:layout_constraintEnd_toEndOf="@+id/etPasswordLoginFrag"
+            app:layout_constraintStart_toStartOf="@+id/etPasswordLoginFrag"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/etPasswordLoginFrag"
+            android:layout_width="222dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginBottom="17dp"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            app:layout_constraintBottom_toTopOf="@+id/loginButtonFrag"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etEmailLoginFrag" />
+
+        <TextView
+            android:id="@+id/tvsignUpLinkLoginFrag"
+            android:layout_width="221dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="206dp"
+            android:text="new to app? click here to sign up"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/resetPassLinkLoginFrag" />
+
+        <TextView
+            android:id="@+id/resetPassLinkLoginFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="77dp"
+            android:text="foogot password? reset you password"
+            app:layout_constraintBottom_toTopOf="@+id/tvsignUpLinkLoginFrag"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginButtonFrag" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
