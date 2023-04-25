@@ -2,11 +2,21 @@ package com.example.myprojectapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +24,10 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class AddingDataFrag extends Fragment {
+    private EditText name, id, weight;
+    private Spinner spin;
+    private Button addingBtn;
+    private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,5 +74,56 @@ public class AddingDataFrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_adding_data, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        init();
+    }
+
+    private void init() {
+        fbs = FirebaseServices.getInstance();
+        name = getView().findViewById(R.id.adddataFragName);
+        id = getView().findViewById(R.id.adddataFragID);
+        weight = getView().findViewById(R.id.adddataFragW);
+        spin = getView().findViewById(R.id.adddataSpinKind);
+        addingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToFirebase();
+            }
+
+            private void addToFirebase() {
+                String nameStr, idStr, weightStr, spinStr;
+
+                spinStr = spin.getSelectedItem().toString();
+                nameStr = name.getText().toString();
+                idStr = id.getText().toString();
+                weightStr = weight.getText().toString();
+
+                if(nameStr.trim().isEmpty() || spinStr.trim().isEmpty() || idStr.trim().isEmpty()||weightStr.trim().isEmpty()){
+                    Toast.makeText(getActivity(), "Some data are incorrect", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Item item = new Item(nameStr,idStr,weightStr,spinStr);
+
+                fbs.getFire().collection("users_")
+                        .add(item)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                //Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                //Log.e(TAG, "Error adding document", e);
+                            }
+                        });
+
+            }
+        });
     }
 }
