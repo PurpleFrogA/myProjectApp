@@ -12,7 +12,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        gotoLoginFragment();
+        //gotoLoginFragment();
+        gotoAddFrag();
+
+    }
+
+    private void gotoAddFrag() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.FrameLayoutMain, new AddingDataFrag());
+        ft.commit();
     }
 
     private void gotoLoginFragment() {

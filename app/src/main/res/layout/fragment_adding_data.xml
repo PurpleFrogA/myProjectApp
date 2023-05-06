@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addDataFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddingDataFrag">
@@ -24,11 +25,12 @@
 
         <EditText
             android:id="@+id/adddataFragID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="213dp"
+            android:layout_height="62dp"
             android:layout_marginStart="35dp"
             android:layout_marginBottom="49dp"
             android:ems="10"
+            android:hint="ID"
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/adddataFragW"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,52 +38,58 @@
 
         <EditText
             android:id="@+id/adddataFragW"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="213dp"
+            android:layout_height="60dp"
             android:layout_marginStart="35dp"
             android:layout_marginBottom="55dp"
             android:ems="10"
+            android:hint="weight"
             android:inputType="textEmailAddress"
-            app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress4"
+            app:layout_constraintBottom_toTopOf="@+id/adddataFragSize"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adddataFragID" />
 
         <EditText
             android:id="@+id/adddataFragName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="216dp"
+            android:layout_height="64dp"
             android:layout_marginStart="35dp"
             android:layout_marginTop="55dp"
             android:layout_marginBottom="62dp"
             android:ems="10"
+            android:hint="name"
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/adddataFragID"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextTextEmailAddress4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/adddataFragSize"
+            android:layout_width="215dp"
+            android:layout_height="60dp"
             android:layout_marginStart="35dp"
+            android:layout_marginEnd="166dp"
             android:layout_marginBottom="41dp"
             android:ems="10"
+            android:hint="size"
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/adddataSpinKind"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adddataFragW" />
 
         <Spinner
             android:id="@+id/adddataSpinKind"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="403dp"
+            android:layout_height="50dp"
             android:layout_marginStart="1dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="54dp"
+            android:entries="@array/arr_name"
             app:layout_constraintBottom_toTopOf="@+id/adddataBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress4" />
+            app:layout_constraintTop_toBottomOf="@+id/adddataFragSize" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

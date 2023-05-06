@@ -24,7 +24,7 @@ import com.google.firebase.firestore.DocumentReference;
  * create an instance of this fragment.
  */
 public class AddingDataFrag extends Fragment {
-    private EditText name, id, weight;
+    private EditText name, id, weight,size;
     private Spinner spin;
     private Button addingBtn;
     private FirebaseServices fbs;
@@ -88,6 +88,7 @@ public class AddingDataFrag extends Fragment {
         id = getView().findViewById(R.id.adddataFragID);
         weight = getView().findViewById(R.id.adddataFragW);
         spin = getView().findViewById(R.id.adddataSpinKind);
+        size = getView().findViewById(R.id.adddataFragSize);
         addingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,14 +96,15 @@ public class AddingDataFrag extends Fragment {
             }
 
             private void addToFirebase() {
-                String nameStr, idStr, weightStr, spinStr;
+                String nameStr, idStr, weightStr, spinStr,sizeStr;
 
                 spinStr = spin.getSelectedItem().toString();
                 nameStr = name.getText().toString();
                 idStr = id.getText().toString();
                 weightStr = weight.getText().toString();
+                sizeStr = size.getText().toString();
 
-                if(nameStr.trim().isEmpty() || spinStr.trim().isEmpty() || idStr.trim().isEmpty()||weightStr.trim().isEmpty()){
+                if(nameStr.trim().isEmpty() || spinStr.trim().isEmpty() || idStr.trim().isEmpty()||weightStr.trim().isEmpty()||sizeStr.trim().isEmpty()){
                     Toast.makeText(getActivity(), "Some data are incorrect", Toast.LENGTH_SHORT).show();
                     return;
                 }
