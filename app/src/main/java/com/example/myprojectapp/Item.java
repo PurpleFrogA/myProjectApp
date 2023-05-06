@@ -4,17 +4,17 @@ public class Item {
     private String name;
     private String id;
     private String weight;
-    //private String al7aja;
     private String kind;
-    //private String picture;
+    private String size;
+//private String al7aja;
 
-    public Item(String name, String id, String weight/*, String al7aja*/, String kind/*, String picture*/) {
+    //private String picture;
+    public Item(String name, String id, String weight, String kind, String size) {
         this.name = name;
         this.id = id;
         this.weight = weight;
-        //this.al7aja = al7aja;
         this.kind = kind;
-        //this.picture = picture;
+        this.size = size;
     }
 
     public String getName() {
@@ -41,14 +41,6 @@ public class Item {
         this.weight = weight;
     }
 
-    /*public String getAl7aja() {
-        return al7aja;
-    }*/
-
-    /*public void setAl7aja(String al7aja) {
-        this.al7aja = al7aja;
-    }*/
-
     public String getKind() {
         return kind;
     }
@@ -57,13 +49,13 @@ public class Item {
         this.kind = kind;
     }
 
-    /*public String getPicture() {
-        return picture;
-    }*/
+    public String getSize() {
+        return size;
+    }
 
-    /*public void setPicture(String picture) {
-        this.picture = picture;
-    }*/
+    public void setSize(String size) {
+        this.size = size;
+    }
 
     @Override
     public String toString() {
@@ -71,10 +63,8 @@ public class Item {
                 "name='" + name + '\'' +
                 ", id='" + id + '\'' +
                 ", weight='" + weight + '\'' +
-                /*", al7aja='" + al7aja + '\'' +*/
                 ", kind='" + kind + '\'' +
-                /*", picture='" + picture + '\'' +*/
+                ", size='" + size + '\'' +
                 '}';
     }
-
 }

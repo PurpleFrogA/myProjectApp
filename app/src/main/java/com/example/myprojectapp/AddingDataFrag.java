@@ -1,5 +1,7 @@
 package com.example.myprojectapp;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -89,43 +91,44 @@ public class AddingDataFrag extends Fragment {
         weight = getView().findViewById(R.id.adddataFragW);
         spin = getView().findViewById(R.id.adddataSpinKind);
         size = getView().findViewById(R.id.adddataFragSize);
+        addingBtn=getView().findViewById(R.id.adddataBtn);
         addingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addToFirebase();
             }
 
-            private void addToFirebase() {
-                String nameStr, idStr, weightStr, spinStr,sizeStr;
-
-                spinStr = spin.getSelectedItem().toString();
-                nameStr = name.getText().toString();
-                idStr = id.getText().toString();
-                weightStr = weight.getText().toString();
-                sizeStr = size.getText().toString();
-
-                if(nameStr.trim().isEmpty() || spinStr.trim().isEmpty() || idStr.trim().isEmpty()||weightStr.trim().isEmpty()||sizeStr.trim().isEmpty()){
-                    Toast.makeText(getActivity(), "Some data are incorrect", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Item item = new Item(nameStr,idStr,weightStr,spinStr);
-
-                fbs.getFire().collection("users_")
-                        .add(item)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                //Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                //Log.e(TAG, "Error adding document", e);
-                            }
-                        });
-
-            }
         });
+    }
+    private void addToFirebase() {
+        String nameStr, idStr, weightStr, spinStr,sizeStr;
+
+        spinStr = spin.getSelectedItem().toString();
+        nameStr = name.getText().toString();
+        idStr = id.getText().toString();
+        weightStr = weight.getText().toString();
+        sizeStr = size.getText().toString();
+
+        if(nameStr.trim().isEmpty() || spinStr.trim().isEmpty() || idStr.trim().isEmpty()||weightStr.trim().isEmpty()||sizeStr.trim().isEmpty()){
+            Toast.makeText(getActivity(), "Some data are incorrect", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Item item = new Item(nameStr,idStr,spinStr,weightStr,sizeStr);
+
+        fbs.getFire().collection("Item")
+                .add(item)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Error adding document", e);
+                    }
+                });
+
     }
 }

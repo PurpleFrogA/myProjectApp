@@ -132,6 +132,9 @@ public class SignUPFragment extends Fragment {
                         if(task.isSuccessful()){
 
                             Toast.makeText(getActivity(), "you have successfully signed in", Toast.LENGTH_SHORT).show();
+                            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                            ft.replace(R.id.FrameLayoutMain, new AddingDataFrag());
+                            ft.commit();
                         }
                         else {
                             Log.e("TAG", task.getException().getMessage());
