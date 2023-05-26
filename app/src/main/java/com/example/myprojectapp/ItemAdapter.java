@@ -1,5 +1,6 @@
 package com.example.myprojectapp;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import io.grpc.Context;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
     Context context;
 
-    ArrayList<Items> listItem;
+    ArrayList<Item> listItem;
 
-    public ItemAdapter(Context context, ArrayList<Items> listItem) {
+    public ItemAdapter(Context context, ArrayList<Item> listItem) {
         this.context = context;
         this.listItem = listItem;
     }
@@ -33,7 +33,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
 
-        Items items = listItem.get(position);
+        Item items = listItem.get(position);
         holder.name.setText(items.getName());
         holder.weight.setText(items.getWeight());
         holder.size.setText(items.getSize());

@@ -1,8 +1,20 @@
 <resources>
     <string name="app_name">My Project App</string>
-    <string-array name="arr_name">
+    <string-array name="arr_kind">
         <item>art</item>
         <item>music</item>
+        <item>book</item>
+    </string-array>
+
+    <string-array name="arr_size">
+        <item>big</item>
+        <item>medium</item>
+        <item>small</item>
+    </string-array>
+
+    <string-array name="arr_gender">
+        <item>male</item>
+        <item>female</item>
     </string-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

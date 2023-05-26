@@ -22,13 +22,13 @@ import com.google.firebase.firestore.DocumentReference;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AddingDataFrag#newInstance} factory method to
+ * Use the {@link AddingUsersFrag#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddingDataFrag extends Fragment {
-    private EditText name, id, weight;
-    private Spinner spinKind,spinSize;
-    private Button addingBtn;
+public class AddingUsersFrag extends Fragment {
+    private EditText email,phoneNum;
+    private Spinner gender;
+    private Button addUser;
     private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -40,7 +40,7 @@ public class AddingDataFrag extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public AddingDataFrag() {
+    public AddingUsersFrag() {
         // Required empty public constructor
     }
 
@@ -50,11 +50,11 @@ public class AddingDataFrag extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AddingDataFrag.
+     * @return A new instance of fragment AddingUsersFrag.
      */
     // TODO: Rename and change types and number of parameters
-    public static AddingDataFrag newInstance(String param1, String param2) {
-        AddingDataFrag fragment = new AddingDataFrag();
+    public static AddingUsersFrag newInstance(String param1, String param2) {
+        AddingUsersFrag fragment = new AddingUsersFrag();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,48 +75,42 @@ public class AddingDataFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_adding_data, container, false);
+        return inflater.inflate(R.layout.fragment_adding_users, container, false);
     }
-
-    @Override
     public void onStart() {
         super.onStart();
-        init();
+        first();
     }
 
-    private void init() {
+    private void first() {
         fbs = FirebaseServices.getInstance();
-        name = getView().findViewById(R.id.adddataFragName);
-        id = getView().findViewById(R.id.adddataFragID);
-        weight = getView().findViewById(R.id.adddataFragW);
-        spinKind = getView().findViewById(R.id.adddataSpinKind);
-        spinSize = getView().findViewById(R.id.adddataSpinSize);
-        addingBtn=getView().findViewById(R.id.adddataBtn);
-        addingBtn.setOnClickListener(new View.OnClickListener() {
+        email = getView().findViewById(R.id.adduserEmail);
+        phoneNum = getView().findViewById(R.id.adduserPhoneNum);
+        gender = getView().findViewById(R.id.addusersGender);
+        addUser = getView().findViewById(R.id.addusersbtn);
+        addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToFirebaseData();
+                addToFirebaseUser();
             }
 
         });
     }
-    private void addToFirebaseData() {
-        String nameStr, idStr, weightStr, spinStr,sizeStr;
 
-        spinStr = spinKind.getSelectedItem().toString();
-        nameStr = name.getText().toString();
-        idStr = id.getText().toString();
-        weightStr = weight.getText().toString();
-        sizeStr = spinSize.getSelectedItem().toString();
+    private void addToFirebaseUser() {
+        String emailStr, phoneNumStr, genderStr;
+        genderStr = gender.getSelectedItem().toString();
+        emailStr = email.getText().toString();
+        phoneNumStr = phoneNum.getText().toString();
 
-        if(nameStr.trim().isEmpty() || spinStr.trim().isEmpty() || idStr.trim().isEmpty()||weightStr.trim().isEmpty()||sizeStr.trim().isEmpty()){
+        if(emailStr.trim().isEmpty() || genderStr.trim().isEmpty() || phoneNumStr.trim().isEmpty()){
             Toast.makeText(getActivity(), "Some data are incorrect", Toast.LENGTH_SHORT).show();
             return;
         }
-        Item item = new Item(nameStr,idStr,weightStr,spinStr,sizeStr);
+        User user = new User(emailStr,phoneNumStr,genderStr);
 
-        fbs.getFire().collection("Item")
-                .add(item)
+        fbs.getFire().collection("User")
+                .add(user)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -129,6 +123,5 @@ public class AddingDataFrag extends Fragment {
                         Log.e(TAG, "Error adding document", e);
                     }
                 });
-
     }
 }

@@ -12,7 +12,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //gotoLoginFragment();
-        gotoLoginFragment();
+        //gotoitemList();
+        gotoAddUser();
+    }
+
+    private void gotoAddUser() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.FrameLayoutMain, new AddingUsersFrag());
+        ft.commit();
+    }
+
+    private void gotoitemList() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.FrameLayoutMain, new ItemListFragment());
+        ft.commit();
     }
 
     private void gotoAddFrag() {

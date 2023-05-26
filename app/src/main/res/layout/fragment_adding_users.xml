@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addUserFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddingUsersFrag">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/adduserEmail"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toTopOf="@+id/adduserPhoneNum"
+            app:layout_constraintEnd_toEndOf="@+id/adduserPhoneNum"
+            app:layout_constraintStart_toStartOf="@+id/adduserPhoneNum"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/adduserPhoneNum"
+            android:layout_width="339dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="43dp"
+            android:ems="10"
+            android:hint="Phone number"
+            android:inputType="phone"
+            app:layout_constraintBottom_toTopOf="@+id/addusersGender"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adduserEmail" />
+
+        <Spinner
+            android:id="@+id/addusersGender"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="266dp"
+            android:entries="@array/arr_gender"
+            app:layout_constraintBottom_toTopOf="@+id/addusersbtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adduserPhoneNum" />
+
+        <Button
+            android:id="@+id/addusersbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="139dp"
+            android:text="add user"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addusersGender" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

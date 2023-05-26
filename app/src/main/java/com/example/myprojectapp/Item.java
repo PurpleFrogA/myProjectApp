@@ -6,9 +6,7 @@ public class Item {
     private String weight;
     private String kind;
     private String size;
-//private String al7aja;
 
-    //private String picture;
     public Item(String name, String id, String weight, String kind, String size) {
         this.name = name;
         this.id = id;
@@ -16,6 +14,14 @@ public class Item {
         this.kind = kind;
         this.size = size;
     }
+    //private String al7aja;
+
+
+    public Item() {
+
+    }
+
+    //private String picture;
 
     public String getName() {
         return name;
