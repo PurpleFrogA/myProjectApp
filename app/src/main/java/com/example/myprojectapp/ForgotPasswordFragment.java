@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +25,7 @@ import com.google.firebase.auth.AuthResult;
  */
 public class ForgotPasswordFragment extends Fragment {
     private EditText username;
-    private Button forgotPassBt;
+    private Button forgotPassBt,gotoLogin,gotoSingUp;
     private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -79,7 +80,27 @@ public class ForgotPasswordFragment extends Fragment {
         super.onStart();
         fbs = FirebaseServices.getInstance();
         username = getView().findViewById(R.id.etEmailForgotPassFrag);
+        gotoLogin = getView().findViewById(R.id.gotoLoginForgotPass);
+        gotoLogin = getView().findViewById(R.id.gotoSingUPForgotPass);
         forgotPassBt = getView().findViewById(R.id.forgotPassFragResetBt);
+
+        gotoSingUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.FrameLayoutMain, new SignUPFragment());
+                ft.commit();
+            }
+        });
+
+        gotoLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.FrameLayoutMain, new LoginFragment());
+                ft.commit();
+            }
+        });
         forgotPassBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

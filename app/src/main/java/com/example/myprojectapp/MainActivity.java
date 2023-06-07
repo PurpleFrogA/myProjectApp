@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
         //gotoLoginFragment();
         //gotoitemList();
         gotoAddUser();
+        //gotoAddFrag();
     }
 
     private void gotoAddUser() {

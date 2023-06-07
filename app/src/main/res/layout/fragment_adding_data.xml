@@ -16,38 +16,25 @@
             android:id="@+id/adddataBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="105dp"
+            android:layout_marginBottom="158dp"
             android:text="add"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/adddataFragBack"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adddataSpinKind" />
 
         <EditText
-            android:id="@+id/adddataFragID"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="16dp"
-            android:ems="10"
-            android:hint="ID"
-            android:inputType="textEmailAddress"
-            app:layout_constraintBottom_toTopOf="@+id/adddataFragW"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/adddataFragName" />
-
-        <EditText
             android:id="@+id/adddataFragName"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="21dp"
-            android:layout_marginEnd="3dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="19dp"
             android:ems="10"
             android:hint="name"
             android:inputType="textEmailAddress"
-            app:layout_constraintBottom_toTopOf="@+id/adddataFragID"
+            app:layout_constraintBottom_toTopOf="@+id/adddataFragW"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -56,7 +43,9 @@
             android:id="@+id/adddataSpinKind"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="181dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="80dp"
             android:entries="@array/arr_kind"
             app:layout_constraintBottom_toTopOf="@+id/adddataBtn"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,28 +56,40 @@
             android:id="@+id/adddataFragW"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="17dp"
             android:ems="10"
             android:hint="weight"
             android:inputType="number"
             app:layout_constraintBottom_toTopOf="@+id/adddataSpinSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/adddataFragID" />
+            app:layout_constraintTop_toBottomOf="@+id/adddataFragName" />
 
         <Spinner
             android:id="@+id/adddataSpinSize"
-            android:layout_width="404dp"
-            android:layout_height="66dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="12dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="26dp"
             android:entries="@array/arr_size"
             app:layout_constraintBottom_toTopOf="@+id/adddataSpinKind"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adddataFragW" />
+
+        <Button
+            android:id="@+id/adddataFragBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="24dp"
+            android:text="back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adddataBtn" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

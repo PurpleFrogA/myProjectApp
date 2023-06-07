@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,9 +27,9 @@ import com.google.firebase.firestore.DocumentReference;
  * create an instance of this fragment.
  */
 public class AddingDataFrag extends Fragment {
-    private EditText name, id, weight;
+    private EditText name, weight;
     private Spinner spinKind,spinSize;
-    private Button addingBtn;
+    private Button addingBtn,backToHomeBtn;
     private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -87,11 +88,20 @@ public class AddingDataFrag extends Fragment {
     private void init() {
         fbs = FirebaseServices.getInstance();
         name = getView().findViewById(R.id.adddataFragName);
-        id = getView().findViewById(R.id.adddataFragID);
         weight = getView().findViewById(R.id.adddataFragW);
         spinKind = getView().findViewById(R.id.adddataSpinKind);
         spinSize = getView().findViewById(R.id.adddataSpinSize);
+        backToHomeBtn=getView().findViewById(R.id.adddataFragBack);
         addingBtn=getView().findViewById(R.id.adddataBtn);
+
+        backToHomeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.FrameLayoutMain, new ItemListFragment());
+                ft.commit();
+            }
+        });
         addingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,15 +115,14 @@ public class AddingDataFrag extends Fragment {
 
         spinStr = spinKind.getSelectedItem().toString();
         nameStr = name.getText().toString();
-        idStr = id.getText().toString();
         weightStr = weight.getText().toString();
         sizeStr = spinSize.getSelectedItem().toString();
 
-        if(nameStr.trim().isEmpty() || spinStr.trim().isEmpty() || idStr.trim().isEmpty()||weightStr.trim().isEmpty()||sizeStr.trim().isEmpty()){
+        if(nameStr.trim().isEmpty() || spinStr.trim().isEmpty() || weightStr.trim().isEmpty()||sizeStr.trim().isEmpty()){
             Toast.makeText(getActivity(), "Some data are incorrect", Toast.LENGTH_SHORT).show();
             return;
         }
-        Item item = new Item(nameStr,idStr,weightStr,spinStr,sizeStr);
+        Item item = new Item(nameStr,weightStr,spinStr,sizeStr);
 
         fbs.getFire().collection("Item")
                 .add(item)

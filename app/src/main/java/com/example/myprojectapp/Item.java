@@ -2,14 +2,12 @@ package com.example.myprojectapp;
 
 public class Item {
     private String name;
-    private String id;
     private String weight;
     private String kind;
     private String size;
 
-    public Item(String name, String id, String weight, String kind, String size) {
+    public Item(String name,String weight, String kind, String size) {
         this.name = name;
-        this.id = id;
         this.weight = weight;
         this.kind = kind;
         this.size = size;
@@ -30,15 +28,6 @@ public class Item {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getWeight() {
         return weight;
     }
@@ -67,7 +56,6 @@ public class Item {
     public String toString() {
         return "Item{" +
                 "name='" + name + '\'' +
-                ", id='" + id + '\'' +
                 ", weight='" + weight + '\'' +
                 ", kind='" + kind + '\'' +
                 ", size='" + size + '\'' +

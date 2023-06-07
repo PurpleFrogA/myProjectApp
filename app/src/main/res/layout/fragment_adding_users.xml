@@ -12,29 +12,32 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/adduserEmail"
+            android:id="@+id/adduserAddress"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginEnd="33dp"
+            android:layout_marginBottom="27dp"
             android:ems="10"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            app:layout_constraintBottom_toTopOf="@+id/adduserPhoneNum"
-            app:layout_constraintEnd_toEndOf="@+id/adduserPhoneNum"
-            app:layout_constraintStart_toStartOf="@+id/adduserPhoneNum"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:hint="Address"
+            android:inputType="textPostalAddress"
+            app:layout_constraintBottom_toTopOf="@+id/addusersGender"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adduserPhoneNum" />
 
         <EditText
             android:id="@+id/adduserPhoneNum"
-            android:layout_width="339dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="43dp"
+            android:layout_marginStart="29dp"
+            android:layout_marginEnd="29dp"
+            android:layout_marginBottom="28dp"
             android:ems="10"
             android:hint="Phone number"
             android:inputType="phone"
-            app:layout_constraintBottom_toTopOf="@+id/addusersGender"
+            app:layout_constraintBottom_toTopOf="@+id/adduserAddress"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adduserEmail" />
 
@@ -42,22 +45,65 @@
             android:id="@+id/addusersGender"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="266dp"
+            android:layout_marginStart="31dp"
+            android:layout_marginEnd="31dp"
+            android:layout_marginBottom="29dp"
             android:entries="@array/arr_gender"
             app:layout_constraintBottom_toTopOf="@+id/addusersbtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/adduserPhoneNum" />
+            app:layout_constraintTop_toBottomOf="@+id/adduserAddress" />
 
         <Button
             android:id="@+id/addusersbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="139dp"
+            android:layout_marginBottom="117dp"
             android:text="add user"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/addUserFragBack"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addusersGender" />
+
+        <EditText
+            android:id="@+id/adduserEmail"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="18dp"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toTopOf="@+id/adduserPhoneNum"
+            app:layout_constraintEnd_toEndOf="@+id/adduserName"
+            app:layout_constraintStart_toStartOf="@+id/adduserName"
+            app:layout_constraintTop_toBottomOf="@+id/adduserName" />
+
+        <Button
+            android:id="@+id/addUserFragBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="37dp"
+            android:text="back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addusersbtn" />
+
+        <EditText
+            android:id="@+id/adduserName"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="29dp"
+            android:layout_marginBottom="17dp"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/adduserEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

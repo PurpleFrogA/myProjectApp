@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,9 +27,9 @@ import com.google.firebase.firestore.DocumentReference;
  * create an instance of this fragment.
  */
 public class AddingUsersFrag extends Fragment {
-    private EditText email,phoneNum;
+    private EditText email,phoneNum,address,name;
     private Spinner gender;
-    private Button addUser;
+    private Button addUser,gotoHomeBtn;
     private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -84,10 +85,22 @@ public class AddingUsersFrag extends Fragment {
 
     private void first() {
         fbs = FirebaseServices.getInstance();
+        name = getView().findViewById(R.id.adduserName);
         email = getView().findViewById(R.id.adduserEmail);
         phoneNum = getView().findViewById(R.id.adduserPhoneNum);
         gender = getView().findViewById(R.id.addusersGender);
+        address =getView().findViewById(R.id.adduserAddress);
+        gotoHomeBtn =getView().findViewById(R.id.addUserFragBack);
         addUser = getView().findViewById(R.id.addusersbtn);
+
+        gotoHomeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.FrameLayoutMain, new ItemListFragment());
+                ft.commit();
+            }
+        });
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,16 +111,18 @@ public class AddingUsersFrag extends Fragment {
     }
 
     private void addToFirebaseUser() {
-        String emailStr, phoneNumStr, genderStr;
+        String emailStr, phoneNumStr, genderStr,addressStr,nameStr;
+        nameStr = name.getText().toString();
         genderStr = gender.getSelectedItem().toString();
         emailStr = email.getText().toString();
         phoneNumStr = phoneNum.getText().toString();
+        addressStr = address.getText().toString();
 
-        if(emailStr.trim().isEmpty() || genderStr.trim().isEmpty() || phoneNumStr.trim().isEmpty()){
+        if(emailStr.trim().isEmpty() || genderStr.trim().isEmpty() || phoneNumStr.trim().isEmpty()|| addressStr.trim().isEmpty()||nameStr.trim().isEmpty()){
             Toast.makeText(getActivity(), "Some data are incorrect", Toast.LENGTH_SHORT).show();
             return;
         }
-        User user = new User(emailStr,phoneNumStr,genderStr);
+        User user = new User(nameStr,emailStr,phoneNumStr,genderStr,addressStr);
 
         fbs.getFire().collection("User")
                 .add(user)

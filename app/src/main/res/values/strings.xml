@@ -1,18 +1,21 @@
 <resources>
     <string name="app_name">My Project App</string>
     <string-array name="arr_kind">
+        <item>kind</item>
         <item>art</item>
         <item>music</item>
         <item>book</item>
     </string-array>
 
     <string-array name="arr_size">
+        <item>size</item>
         <item>big</item>
         <item>medium</item>
         <item>small</item>
     </string-array>
 
     <string-array name="arr_gender">
+        <item>gender</item>
         <item>male</item>
         <item>female</item>
     </string-array>
