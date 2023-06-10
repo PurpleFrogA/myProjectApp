@@ -30,8 +30,8 @@
             android:id="@+id/adduserPhoneNum"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="29dp"
-            android:layout_marginEnd="29dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="28dp"
             android:layout_marginBottom="28dp"
             android:ems="10"
             android:hint="Phone number"
@@ -45,11 +45,11 @@
             android:id="@+id/addusersGender"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="31dp"
-            android:layout_marginEnd="31dp"
-            android:layout_marginBottom="29dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="17dp"
             android:entries="@array/arr_gender"
-            app:layout_constraintBottom_toTopOf="@+id/addusersbtn"
+            app:layout_constraintBottom_toTopOf="@+id/addUserImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adduserAddress" />
@@ -58,32 +58,34 @@
             android:id="@+id/addusersbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="117dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="8dp"
             android:text="add user"
             app:layout_constraintBottom_toTopOf="@+id/addUserFragBack"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addusersGender" />
+            app:layout_constraintStart_toStartOf="@+id/addUserImage"
+            app:layout_constraintTop_toBottomOf="@+id/addUserImage" />
 
         <EditText
             android:id="@+id/adduserEmail"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="18dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="19dp"
             android:ems="10"
             android:hint="Email"
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/adduserPhoneNum"
-            app:layout_constraintEnd_toEndOf="@+id/adduserName"
-            app:layout_constraintStart_toStartOf="@+id/adduserName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adduserName" />
 
         <Button
             android:id="@+id/addUserFragBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="37dp"
+            android:layout_marginEnd="33dp"
+            android:layout_marginBottom="16dp"
             android:text="back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -93,9 +95,9 @@
             android:id="@+id/adduserName"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="29dp"
+            android:layout_marginStart="28dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="29dp"
+            android:layout_marginEnd="28dp"
             android:layout_marginBottom="17dp"
             android:ems="10"
             android:hint="Name"
@@ -104,6 +106,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/addUserImage"
+            android:layout_width="133dp"
+            android:layout_height="126dp"
+            android:src="@drawable/user"
+            app:layout_constraintBottom_toTopOf="@+id/addusersbtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addusersGender" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -1,5 +1,6 @@
 package com.example.myprojectapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -135,9 +136,9 @@ public class LoginFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(getActivity(), "you have successfully logged in", Toast.LENGTH_SHORT).show();
-                            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                            ft.replace(R.id.FrameLayoutMain, new AddingDataFrag());
-                            ft.commit();
+
+                            Intent i = new Intent(getActivity(), AnotherActivity.class);
+                            startActivity(i);
                         }
                         else {
                             Log.e("TAG", task.getException().getMessage());

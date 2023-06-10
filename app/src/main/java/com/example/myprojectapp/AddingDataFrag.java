@@ -1,25 +1,37 @@
 package com.example.myprojectapp;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firestore.v1.Cursor;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,9 +39,11 @@ import com.google.firebase.firestore.DocumentReference;
  * create an instance of this fragment.
  */
 public class AddingDataFrag extends Fragment {
+    private static final int RESULT_LOAD_IMG = 23;
     private EditText name, weight;
     private Spinner spinKind,spinSize;
     private Button addingBtn,backToHomeBtn;
+    private ImageView addPhoto;
     private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -93,6 +107,20 @@ public class AddingDataFrag extends Fragment {
         spinSize = getView().findViewById(R.id.adddataSpinSize);
         backToHomeBtn=getView().findViewById(R.id.adddataFragBack);
         addingBtn=getView().findViewById(R.id.adddataBtn);
+        addPhoto = getView().findViewById(R.id.adddataImage);
+
+        addPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+            }
+
+            private void getImageFromGallery() {
+
+            }
+        });
 
         backToHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +139,27 @@ public class AddingDataFrag extends Fragment {
 
         });
     }
+    @Override
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+
+
+        if (resultCode == RESULT_OK) {
+            try {
+                final Uri imageUri = data.getData();
+                final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                addPhoto.setImageBitmap(selectedImage);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG).show();
+            }
+
+        }else {
+            Toast.makeText(getActivity(), "You haven't picked Image",Toast.LENGTH_LONG).show();
+        }
+    }
+
     private void addToFirebaseData() {
         String nameStr, weightStr, spinStr,sizeStr;
 

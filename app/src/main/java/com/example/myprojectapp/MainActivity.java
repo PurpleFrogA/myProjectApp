@@ -13,8 +13,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //gotoLoginFragment();
         //gotoitemList();
-        gotoAddUser();
-        //gotoAddFrag();
+        //gotoAddUser();
+        gotoAddFrag();
     }
 
     private void gotoAddUser() {

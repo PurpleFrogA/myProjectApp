@@ -1,7 +1,12 @@
 package com.example.myprojectapp;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -21,15 +27,20 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AddingUsersFrag#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class AddingUsersFrag extends Fragment {
+    private static final int RESULT_LOAD_IMG = 24;
     private EditText email,phoneNum,address,name;
     private Spinner gender;
     private Button addUser,gotoHomeBtn;
+    private ImageView addProfile;
     private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -92,6 +103,16 @@ public class AddingUsersFrag extends Fragment {
         address =getView().findViewById(R.id.adduserAddress);
         gotoHomeBtn =getView().findViewById(R.id.addUserFragBack);
         addUser = getView().findViewById(R.id.addusersbtn);
+        addProfile = getView().findViewById(R.id.addUserImage);
+
+        addProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+            }
+        });
 
         gotoHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +131,26 @@ public class AddingUsersFrag extends Fragment {
 
         });
     }
+    @Override
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
 
+
+        if (resultCode == RESULT_OK) {
+            try {
+                final Uri imageUri = data.getData();
+                final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                addProfile.setImageBitmap(selectedImage);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG).show();
+            }
+
+        }else {
+            Toast.makeText(getActivity(), "You haven't picked Image",Toast.LENGTH_LONG).show();
+        }
+    }
     private void addToFirebaseUser() {
         String emailStr, phoneNumStr, genderStr,addressStr,nameStr;
         nameStr = name.getText().toString();
