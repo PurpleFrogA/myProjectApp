@@ -106,12 +106,13 @@ public class AddingDataFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 addToFirebaseData();
+                Toast.makeText(getActivity(), "The data has been added", Toast.LENGTH_SHORT).show();
             }
 
         });
     }
     private void addToFirebaseData() {
-        String nameStr, idStr, weightStr, spinStr,sizeStr;
+        String nameStr, weightStr, spinStr,sizeStr;
 
         spinStr = spinKind.getSelectedItem().toString();
         nameStr = name.getText().toString();

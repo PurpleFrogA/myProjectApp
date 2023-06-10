@@ -105,6 +105,7 @@ public class AddingUsersFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 addToFirebaseUser();
+                Toast.makeText(getActivity(), "Your information has been saved", Toast.LENGTH_SHORT).show();
             }
 
         });
