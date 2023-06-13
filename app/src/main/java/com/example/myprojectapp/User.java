@@ -6,6 +6,24 @@ public class User {
     private String phoneNum;
     private String gender;
     private String address;
+    private String profile;
+
+    public User(String name, String email, String phoneNum, String gender, String address, String profile) {
+        this.name = name;
+        this.email = email;
+        this.phoneNum = phoneNum;
+        this.gender = gender;
+        this.address = address;
+        this.profile = profile;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
 
     public String getName() {
         return name;
@@ -36,15 +54,6 @@ public class User {
 
     public User() {
     }
-
-    public User(String name,String email, String phoneNum, String gender,String address) {
-        this.email = email;
-        this.phoneNum = phoneNum;
-        this.gender = gender;
-        this.address = address;
-        this.name = name;
-    }
-
     public String getEmail() {
         return email;
     }

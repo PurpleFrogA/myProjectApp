@@ -6,6 +6,7 @@ import static android.content.ContentValues.TAG;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -25,10 +26,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +48,7 @@ public class AddingUsersFrag extends Fragment {
     private Button addUser,gotoHomeBtn;
     private ImageView addProfile;
     private FirebaseServices fbs;
+    String loginemail = FirebaseAuth.getInstance().getCurrentUser().getEmail() ;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -127,6 +134,10 @@ public class AddingUsersFrag extends Fragment {
             public void onClick(View v) {
                 addToFirebaseUser();
                 Toast.makeText(getActivity(), "Your information has been saved", Toast.LENGTH_SHORT).show();
+
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.FrameLayoutMain, new ItemListFragment());
+                ft.commit();
             }
 
         });
@@ -151,6 +162,28 @@ public class AddingUsersFrag extends Fragment {
             Toast.makeText(getActivity(), "You haven't picked Image",Toast.LENGTH_LONG).show();
         }
     }
+    private String UploadImageToFirebase(){
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) addProfile.getDrawable();
+        Bitmap image = bitmapDrawable.getBitmap();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        StorageReference ref =fbs.getStorage().getReference("listingPictures/" + UUID.randomUUID().toString());
+        UploadTask uploadTask = ref.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+            }
+        });
+        return ref.getPath();
+    }
     private void addToFirebaseUser() {
         String emailStr, phoneNumStr, genderStr,addressStr,nameStr;
         nameStr = name.getText().toString();
@@ -163,21 +196,18 @@ public class AddingUsersFrag extends Fragment {
             Toast.makeText(getActivity(), "Some data are incorrect", Toast.LENGTH_SHORT).show();
             return;
         }
-        User user = new User(nameStr,emailStr,phoneNumStr,genderStr,addressStr);
+        User user = new User(nameStr,emailStr,phoneNumStr,genderStr,addressStr,UploadImageToFirebase());
 
-        fbs.getFire().collection("User")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Error adding document", e);
-                    }
-                });
+        fbs.getFire().collection("User").document(loginemail).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(getActivity(), "done", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 }

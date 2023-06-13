@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutUsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="33dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="27dp"
+            android:autoSizeTextType="uniform"
+            android:bufferType="normal"
+            android:gravity="center"
+            android:lineSpacingExtra="8sp"
+            android:text="Welcome to Borrowed Bling In this application, you can find items that you need for a while and borrow them from someone. Here you can put items that you think others need for a period of time and lend them to him We believe that our application incites to help and creates a spirit of help among people as lenders and borrowers. To create a cooperative spirit among all people from different regions is one of our goals. We hope to change the world in the simplest way. Thank you for choosing us, we hope you have a great time"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textDirection="firstStrongLtr"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/showDetailsProfilebtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/showDetailsProfilebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginBottom="9dp"
+            android:text="profile"
+            app:layout_constraintBottom_toTopOf="@+id/showDetailsLogoutBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <Button
+            android:id="@+id/showDetailsLogoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="45dp"
+            android:text="log out"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/showDetailsProfilebtn"
+            app:layout_constraintTop_toBottomOf="@+id/showDetailsProfilebtn" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

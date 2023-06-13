@@ -5,12 +5,21 @@ public class Item {
     private String weight;
     private String kind;
     private String size;
+    private String imageUrl;
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-    public Item(String name,String weight, String kind, String size) {
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Item(String name, String weight, String kind, String size, String photo) {
         this.name = name;
         this.weight = weight;
         this.kind = kind;
         this.size = size;
+        this.imageUrl = photo;
     }
     //private String al7aja;
 
@@ -52,13 +61,4 @@ public class Item {
         this.size = size;
     }
 
-    @Override
-    public String toString() {
-        return "Item{" +
-                "name='" + name + '\'' +
-                ", weight='" + weight + '\'' +
-                ", kind='" + kind + '\'' +
-                ", size='" + size + '\'' +
-                '}';
-    }
 }

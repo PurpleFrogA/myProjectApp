@@ -4,12 +4,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -28,11 +30,11 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class ItemListFragment extends Fragment {
-
     RecyclerView recyclerView;
-     FirebaseServices fbs;
+    FirebaseServices fbs;
     ItemAdapter itemAdapter;
     ArrayList<Item> list;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -83,8 +85,7 @@ public class ItemListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        recyclerView = getView().findViewById(R.id.itemlist);
-
+        recyclerView = getView().findViewById(R.id.itemList);
         fbs=FirebaseServices.getInstance();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

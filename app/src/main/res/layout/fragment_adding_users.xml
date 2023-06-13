@@ -111,6 +111,7 @@
             android:id="@+id/addUserImage"
             android:layout_width="133dp"
             android:layout_height="126dp"
+            android:background="#FFFFFF"
             android:src="@drawable/user"
             app:layout_constraintBottom_toTopOf="@+id/addusersbtn"
             app:layout_constraintEnd_toEndOf="parent"

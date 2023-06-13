@@ -6,6 +6,8 @@ import static android.content.ContentValues.TAG;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -24,14 +26,20 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.google.firestore.v1.Cursor;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -134,7 +142,12 @@ public class AddingDataFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 addToFirebaseData();
+                UploadImageToFirebase();
                 Toast.makeText(getActivity(), "The data has been added", Toast.LENGTH_SHORT).show();
+
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.FrameLayoutMain, new ItemListFragment());
+                ft.commit();
             }
 
         });
@@ -160,8 +173,30 @@ public class AddingDataFrag extends Fragment {
         }
     }
 
+    private String UploadImageToFirebase(){
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) addPhoto.getDrawable();
+        Bitmap image = bitmapDrawable.getBitmap();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        StorageReference ref =fbs.getStorage().getReference("listingPictures/" + UUID.randomUUID().toString());
+        UploadTask uploadTask = ref.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+            }
+        });
+        return ref.getPath();
+    }
     private void addToFirebaseData() {
-        String nameStr, weightStr, spinStr,sizeStr;
+        String nameStr, weightStr, spinStr,sizeStr,photoStr;
 
         spinStr = spinKind.getSelectedItem().toString();
         nameStr = name.getText().toString();
@@ -172,7 +207,8 @@ public class AddingDataFrag extends Fragment {
             Toast.makeText(getActivity(), "Some data are incorrect", Toast.LENGTH_SHORT).show();
             return;
         }
-        Item item = new Item(nameStr,weightStr,spinStr,sizeStr);
+        Item item = new Item(nameStr,weightStr,spinStr,sizeStr, UploadImageToFirebase());
+
 
         fbs.getFire().collection("Item")
                 .add(item)
@@ -188,6 +224,8 @@ public class AddingDataFrag extends Fragment {
                         Log.e(TAG, "Error adding document", e);
                     }
                 });
+
+
 
     }
 }

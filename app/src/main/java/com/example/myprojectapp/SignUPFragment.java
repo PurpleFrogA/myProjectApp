@@ -133,7 +133,7 @@ public class SignUPFragment extends Fragment {
 
                             Toast.makeText(getActivity(), "you have successfully signed in", Toast.LENGTH_SHORT).show();
                             FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                            ft.replace(R.id.FrameLayoutMain, new AddingDataFrag());
+                            ft.replace(R.id.FrameLayoutMain, new AddingUsersFrag());
                             ft.commit();
                         }
                         else {

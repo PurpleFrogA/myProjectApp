@@ -2,26 +2,27 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ItemListFrameLayout"
-    android:layout_width="408dp"
-    android:layout_height="653dp"
-    tools:context=".ItemListFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#BF884DEF"
+    tools:context=".SearchFragment" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/itemList"
-            android:layout_width="408dp"
-            android:layout_height="653dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="47dp"
+            android:layout_marginEnd="47dp"
+            android:gravity="center"
+            android:text="Search Fragment"
+            android:textSize="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>
