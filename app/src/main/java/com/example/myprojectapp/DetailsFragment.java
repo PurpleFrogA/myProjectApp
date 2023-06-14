@@ -1,15 +1,25 @@
 package com.example.myprojectapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.storage.StorageReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +27,11 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class DetailsFragment extends Fragment {
+    private String path;
+    private FirebaseServices fbs;
+    private TextView nameDetails,weightDetails,sizeDetails,kindDetails;
+    private ImageView imageDetails;
+    Item item;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -30,6 +45,10 @@ public class DetailsFragment extends Fragment {
 
     public DetailsFragment() {
         // Required empty public constructor
+    }
+
+    public DetailsFragment(String path){
+        this.path = path;
     }
 
     /**
@@ -73,6 +92,54 @@ public class DetailsFragment extends Fragment {
     }
 
     private void hi() {
+        nameDetails = getView().findViewById(R.id.detailsFragName);
+        weightDetails = getView().findViewById(R.id.detailsFragWeight);
+        sizeDetails = getView().findViewById(R.id.detailsFragSize);
+        kindDetails = getView().findViewById(R.id.detailsFragKind);
+        imageDetails = getView().findViewById(R.id.detailsFragImage);
 
+        fbs = FirebaseServices.getInstance();
+
+
+        evenToChange();
+    }
+
+
+    private void evenToChange() {
+        DocumentReference documentReference = fbs.getFire().collection("Item").document(path);
+        documentReference.get()
+                .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
+                    if(documentSnapshot.exists()){
+                        item = documentSnapshot.toObject(Item.class);
+                        hearme();
+                    } else {
+                        System.out.println("Documents doesn't exist");
+                    }
+                }).addOnFailureListener(e ->{
+                    System.out.println("Error");
+                });
+    }
+
+    private void hearme() {
+        nameDetails.setText(item.getName());
+        weightDetails.setText(item.getWeight());
+        sizeDetails.setText(item.getSize());
+        kindDetails.setText(item.getKind());
+
+        StorageReference storageReference = fbs.getStorage().getReference().child(item.getImageUrl());
+
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(getContext())
+                        .load(uri)
+                        .into(imageDetails);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 }

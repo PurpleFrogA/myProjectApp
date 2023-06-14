@@ -7,6 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.SearchView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,7 +19,10 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class SearchFragment extends Fragment {
-
+    SearchView searchView;
+    ListView listView;
+    ArrayList<String> stringArrayList;
+    ArrayAdapter<String> stringArrayAdapter;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -60,5 +68,42 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        letsGooo();
+    }
+
+    private void letsGooo() {
+        searchView = getView().findViewById(R.id.searchView);
+        listView = getView().findViewById(R.id.listViewSearch);
+
+        listView.setVisibility(View.GONE);
+
+        stringArrayList = new ArrayList<>();
+        stringArrayList.add("art");
+        stringArrayList.add("music");
+        stringArrayList.add("book");
+
+        stringArrayAdapter = new ArrayAdapter<>(getActivity() , android.R.layout.simple_list_item_1,stringArrayList);
+
+        listView.setAdapter(stringArrayAdapter);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                listView.setVisibility(View.VISIBLE);
+                stringArrayAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
     }
 }

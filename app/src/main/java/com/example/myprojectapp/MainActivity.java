@@ -15,6 +15,13 @@ public class MainActivity extends AppCompatActivity {
         //gotoitemList();
         //gotoAddUser();
         //gotoAddFrag();
+        //gotoSearchFrag();
+    }
+
+    private void gotoSearchFrag() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.FrameLayoutMain, new SearchFragment());
+        ft.commit();
     }
 
     private void gotoAddUser() {

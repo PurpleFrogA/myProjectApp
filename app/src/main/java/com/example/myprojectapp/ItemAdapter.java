@@ -9,11 +9,14 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,20 +36,16 @@ import java.util.UUID;
 
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
-
     Context context;
-
     ArrayList<Item> listItem;
-    // Method to retrieve the image URL from your data source
-    /*private String getImageUrl(int position) {
-        // Assuming MyData class has a method called getImageUrl() to retrieve the image URL
-        return listItem.get(position).getImageUrl();
-    }*/
     FirebaseServices fbs;
+    ArrayList<String> itemListpath;
 
-    public ItemAdapter(Context context, ArrayList<Item> listItem) {
+
+    public ItemAdapter(Context context, ArrayList<Item> listItem, ArrayList<String> itemListpath) {
         this.context = context;
         this.listItem = listItem;
+        this.itemListpath = itemListpath;
     }
 
     @NonNull
@@ -57,27 +56,43 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemViewHolder holder, final int position) {
 
         Item items = listItem.get(position);
         holder.name.setText(items.getName());
-        holder.weight.setText(items.getWeight());
-        holder.size.setText(items.getSize());
+        //holder.weight.setText(items.getWeight());
+        //holder.size.setText(items.getSize());
         holder.kind.setText(items.getKind());
+        fbs = FirebaseServices.getInstance();
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FragmentManager fragmentManager = ((AppCompatActivity) v.getContext()).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+                DetailsFragment fragment = new DetailsFragment();
+                fragmentTransaction.replace(R.id.ItemListFrameLayout, fragment);
+                fragmentTransaction.addToBackStack(null); // Optional: Add the transaction to the back stack
+                fragmentTransaction.commit();
             }
         });
-        /*// Get the image URL from your data source (e.g., list, array)
-        String imageUrl = listItem.get(position).getImageUrl();
 
-        // Pass the image URL and ImageView to the method for loading and displaying the image
-        loadImageFromFirestore(imageUrl, holder.image);
-*/
+        /*StorageReference storageRef= fbs.getStorage().getReference().child(items.getImageUrl());
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(context)
+                        .load(uri)
+                        .into(holder.image);
+            }
 
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+            }
+        });*/
     }
     @Override
     public int getItemCount() {
@@ -87,6 +102,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     public static class ItemViewHolder extends RecyclerView.ViewHolder{
         TextView name,weight,size,kind;
         ImageView image;
+
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,11 +114,4 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             image = itemView.findViewById(R.id.ivPhotoItem);
         }
     }
-    /*private void loadImageFromFirestore(String imageUrl, ImageView imageView) {
-        // Use an image loading library (e.g., Glide) to load and display the image
-        Glide.with(context)
-                .load(imageUrl)
-                .into(imageView);
-    }*/
-
 }

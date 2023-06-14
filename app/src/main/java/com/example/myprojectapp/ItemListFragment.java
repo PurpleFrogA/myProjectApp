@@ -3,7 +3,9 @@ package com.example.myprojectapp;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +21,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -31,9 +37,10 @@ import java.util.ArrayList;
  */
 public class ItemListFragment extends Fragment {
     RecyclerView recyclerView;
-    FirebaseServices fbs;
+    FirebaseFirestore ff;
     ItemAdapter itemAdapter;
     ArrayList<Item> list;
+    ArrayList<String> listPath;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -86,44 +93,29 @@ public class ItemListFragment extends Fragment {
     public void onStart() {
         super.onStart();
         recyclerView = getView().findViewById(R.id.itemList);
-        fbs=FirebaseServices.getInstance();
+        ff = FirebaseFirestore.getInstance();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        list = new ArrayList<>();
+        list = new ArrayList<Item>();
+        listPath = new ArrayList<String>();
 
-
-        fbs.getFire().collection("Item").get()
-                .addOnSuccessListener((QuerySnapshot querySnapshot)->{
-                    if (querySnapshot.isEmpty()){
-                        System.out.println("no items found");
-                        return;
+        evenChangeListener();
+    }
+    private void evenChangeListener() {
+        ff.collection("Item")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        for (DocumentChange dc : value.getDocumentChanges()) {
+                            if (dc.getType() == DocumentChange.Type.ADDED) {
+                                list.add(dc.getDocument().toObject(Item.class));
+                                listPath.add(dc.getDocument().getId());
+                            }
+                        }
+                        itemAdapter= new ItemAdapter(getContext(),list , listPath);
+                        recyclerView.setAdapter(itemAdapter);
                     }
-                    System.out.println("number of items:"+querySnapshot.size());
-
-                    for(DocumentSnapshot doc : querySnapshot.getDocuments()){
-                        String itemId = doc.getId();
-                        Item items = doc.toObject(Item.class);
-                        list.add(items);
-
-                    }
-                    itemAdapter=new ItemAdapter(getActivity(),list);
-                    recyclerView.setAdapter(itemAdapter);
-            /*@Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Items items = dataSnapshot.getValue(Items.class);
-                    list.add(items);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }*/
-
-        });
+                });
     }
 }
