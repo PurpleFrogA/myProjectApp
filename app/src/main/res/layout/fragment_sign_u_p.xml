@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#B06CD794"
     tools:context=".SignUPFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -13,8 +14,8 @@
 
         <EditText
             android:id="@+id/etConPassSignUpFrag"
-            android:layout_width="308dp"
-            android:layout_height="58dp"
+            android:layout_width="358dp"
+            android:layout_height="62dp"
             android:layout_marginBottom="35dp"
             android:ems="10"
             android:hint="Confirm Password"
@@ -26,8 +27,8 @@
 
         <EditText
             android:id="@+id/etEmailSignUpFrag"
-            android:layout_width="308dp"
-            android:layout_height="58dp"
+            android:layout_width="358dp"
+            android:layout_height="62dp"
             android:layout_marginTop="149dp"
             android:layout_marginBottom="7dp"
             android:ems="10"
@@ -40,8 +41,8 @@
 
         <EditText
             android:id="@+id/etPasswordSignUpFrag"
-            android:layout_width="308dp"
-            android:layout_height="58dp"
+            android:layout_width="358dp"
+            android:layout_height="62dp"
             android:layout_marginBottom="11dp"
             android:ems="10"
             android:hint="Password"
@@ -53,10 +54,12 @@
 
         <Button
             android:id="@+id/signUpButtonFrag"
-            android:layout_width="129dp"
-            android:layout_height="0dp"
+            android:layout_width="121dp"
+            android:layout_height="62dp"
             android:layout_marginBottom="26dp"
+            android:background="#72247C"
             android:text="signup"
+            android:textColor="#B06CD794"
             app:layout_constraintBottom_toTopOf="@+id/tvLoginLinkSignupFrag"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,10 +67,14 @@
 
         <TextView
             android:id="@+id/tvLoginLinkSignupFrag"
-            android:layout_width="177dp"
-            android:layout_height="0dp"
+            android:layout_width="238dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="233dp"
             android:text="you have an account? Login"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

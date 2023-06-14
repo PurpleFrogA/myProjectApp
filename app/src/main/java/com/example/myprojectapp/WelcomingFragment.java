@@ -3,10 +3,13 @@ package com.example.myprojectapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +17,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class WelcomingFragment extends Fragment {
+    Button buttonSign;
+    TextView textViewLog;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,5 +65,32 @@ public class WelcomingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_welcoming, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        buttonSign = getView().findViewById(R.id.welcomeSignUP);
+        textViewLog = getView().findViewById(R.id.welcomingLogin);
+
+        buttonSign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.FrameLayoutMain, new SignUPFragment());
+                ft.commit();
+            }
+        });
+
+        textViewLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.FrameLayoutMain, new LoginFragment());
+                ft.commit();
+            }
+        });
+
     }
 }
