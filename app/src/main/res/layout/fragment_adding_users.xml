@@ -50,7 +50,7 @@
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="10dp"
             android:entries="@array/arr_gender"
-            app:layout_constraintBottom_toTopOf="@+id/imageView2"
+            app:layout_constraintBottom_toTopOf="@+id/addUserImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adduserAddress" />
@@ -67,8 +67,8 @@
             android:textColor="#E156B379"
             app:layout_constraintBottom_toTopOf="@+id/addUserFragBack"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintStart_toStartOf="@+id/addUserImage"
+            app:layout_constraintTop_toBottomOf="@+id/addUserImage" />
 
         <EditText
             android:id="@+id/adduserEmail"
@@ -117,7 +117,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/addUserImage"
             android:layout_width="125dp"
             android:layout_height="110dp"
             android:layout_marginBottom="10dp"
