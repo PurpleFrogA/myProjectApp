@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#E156B379">
 
         <EditText
             android:id="@+id/adduserAddress"
@@ -47,9 +48,9 @@
             android:layout_height="0dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginBottom="17dp"
+            android:layout_marginBottom="10dp"
             android:entries="@array/arr_gender"
-            app:layout_constraintBottom_toTopOf="@+id/addUserImage"
+            app:layout_constraintBottom_toTopOf="@+id/imageView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adduserAddress" />
@@ -58,12 +59,16 @@
             android:id="@+id/addusersbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="157dp"
             android:layout_marginBottom="8dp"
+            android:background="#E4862293"
             android:text="add user"
+            android:textColor="#E156B379"
             app:layout_constraintBottom_toTopOf="@+id/addUserFragBack"
-            app:layout_constraintStart_toStartOf="@+id/addUserImage"
-            app:layout_constraintTop_toBottomOf="@+id/addUserImage" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
         <EditText
             android:id="@+id/adduserEmail"
@@ -71,7 +76,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="28dp"
             android:layout_marginEnd="28dp"
-            android:layout_marginBottom="19dp"
+            android:layout_marginBottom="20dp"
             android:ems="10"
             android:hint="Email"
             android:inputType="textEmailAddress"
@@ -84,11 +89,15 @@
             android:id="@+id/addUserFragBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="33dp"
+            android:layout_marginStart="291dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
+            android:background="#E4862293"
             android:text="back"
+            android:textColor="#E156B379"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addusersbtn" />
 
         <EditText
@@ -108,10 +117,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/addUserImage"
-            android:layout_width="133dp"
-            android:layout_height="126dp"
-            android:background="#FFFFFF"
+            android:id="@+id/imageView2"
+            android:layout_width="125dp"
+            android:layout_height="110dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/user"
             app:layout_constraintBottom_toTopOf="@+id/addusersbtn"
             app:layout_constraintEnd_toEndOf="parent"

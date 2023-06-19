@@ -169,7 +169,7 @@ public class AddingUsersFrag extends Fragment {
         Bitmap image = bitmapDrawable.getBitmap();
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
-        StorageReference ref =fbs.getStorage().getReference("listingPictures/" + UUID.randomUUID().toString());
+        StorageReference ref =fbs.getStorage().getReference("profilePictures" + UUID.randomUUID().toString());
         UploadTask uploadTask = ref.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override

@@ -9,7 +9,8 @@
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#B06CD794">
 
         <TextView
             android:id="@+id/textView2"
@@ -25,6 +26,7 @@
             android:lineSpacingExtra="8sp"
             android:text="Welcome to Borrowed Bling In this application, you can find items that you need for a while and borrow them from someone. Here you can put items that you think others need for a period of time and lend them to him We believe that our application incites to help and creates a spirit of help among people as lenders and borrowers. To create a cooperative spirit among all people from different regions is one of our goals. We hope to change the world in the simplest way. Thank you for choosing us, we hope you have a great time"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#9913AA"
             android:textDirection="firstStrongLtr"
             android:textSize="8sp"
             android:textStyle="bold"
@@ -39,7 +41,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="45dp"
             android:layout_marginBottom="9dp"
+            android:background="#72247C"
             android:text="profile"
+            android:textColor="#B06CD794"
             app:layout_constraintBottom_toTopOf="@+id/showDetailsLogoutBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -50,7 +54,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginBottom="45dp"
+            android:background="#72247C"
             android:text="log out"
+            android:textColor="#B06CD794"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/showDetailsProfilebtn"
             app:layout_constraintTop_toBottomOf="@+id/showDetailsProfilebtn" />

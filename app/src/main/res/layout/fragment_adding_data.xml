@@ -10,7 +10,8 @@
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#E156B379">
 
         <Button
             android:id="@+id/adddataBtn"
@@ -18,7 +19,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="29dp"
             android:layout_marginBottom="11dp"
+            android:background="#E4862293"
             android:text="add"
+            android:textColor="#E156B379"
             app:layout_constraintBottom_toTopOf="@+id/adddataFragBack"
             app:layout_constraintStart_toStartOf="@+id/adddataImage"
             app:layout_constraintTop_toBottomOf="@+id/adddataImage" />
@@ -86,7 +89,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="26dp"
             android:layout_marginBottom="105dp"
+            android:background="#E4862293"
             android:text="back"
+            android:textColor="#E156B379"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adddataBtn" />
