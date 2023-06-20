@@ -47,12 +47,13 @@ import java.util.UUID;
  * create an instance of this fragment.
  */
 public class AddingDataFrag extends Fragment {
-    private static final int RESULT_LOAD_IMG = 23;
     private EditText name, weight;
     private Spinner spinKind,spinSize;
     private Button addingBtn,backToHomeBtn;
     private ImageView addPhoto;
     private FirebaseServices fbs;
+
+    int SELECT_PICTURE = 200;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -120,13 +121,7 @@ public class AddingDataFrag extends Fragment {
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.setType("image/*");
-                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
-            }
-
-            private void getImageFromGallery() {
-
+                openGalleryAndSelectPhoto();
             }
         });
 
@@ -134,7 +129,7 @@ public class AddingDataFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.FrameLayoutMain, new ItemListFragment());
+                ft.replace(R.id.FrameLayoutAnother, new ItemListFragment());
                 ft.commit();
             }
         });
@@ -142,45 +137,32 @@ public class AddingDataFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 addToFirebaseData();
-                UploadImageToFirebase();
-                Toast.makeText(getActivity(), "The data has been added", Toast.LENGTH_SHORT).show();
-
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.FrameLayoutMain, new ItemListFragment());
-                ft.commit();
             }
 
         });
     }
     @Override
-    public void onActivityResult(int reqCode, int resultCode, Intent data) {
-        super.onActivityResult(reqCode, resultCode, data);
-
-
-        if (resultCode == RESULT_OK) {
-            try {
-                final Uri imageUri = data.getData();
-                final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
-                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                addPhoto.setImageBitmap(selectedImage);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG).show();
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            if( requestCode ==SELECT_PICTURE){
+                Uri selectedImageUri = data.getData();
+                if(null != selectedImageUri){
+                    addPhoto.setImageURI(selectedImageUri);
+                }
             }
-
-        }else {
-            Toast.makeText(getActivity(), "You haven't picked Image",Toast.LENGTH_LONG).show();
         }
     }
 
     private String UploadImageToFirebase(){
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
         BitmapDrawable bitmapDrawable = (BitmapDrawable) addPhoto.getDrawable();
         Bitmap image = bitmapDrawable.getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
-        StorageReference ref =fbs.getStorage().getReference("listingPictures/" + UUID.randomUUID().toString());
+        StorageReference ref =fbs.getStorage().getReference("listingPictures" + UUID.randomUUID().toString());
         UploadTask uploadTask = ref.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -195,6 +177,15 @@ public class AddingDataFrag extends Fragment {
         });
         return ref.getPath();
     }
+
+
+    void openGalleryAndSelectPhoto(){
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+
+        startActivityForResult(Intent.createChooser(i , "SELECT_PICTURE") , SELECT_PICTURE);
+    }
     private void addToFirebaseData() {
         String nameStr, weightStr, spinStr,sizeStr,photoStr;
 
@@ -202,29 +193,33 @@ public class AddingDataFrag extends Fragment {
         nameStr = name.getText().toString();
         weightStr = weight.getText().toString();
         sizeStr = spinSize.getSelectedItem().toString();
+        photoStr = UploadImageToFirebase();
 
         if(nameStr.trim().isEmpty() || spinStr.trim().isEmpty() || weightStr.trim().isEmpty()||sizeStr.trim().isEmpty()){
             Toast.makeText(getActivity(), "Some data are incorrect", Toast.LENGTH_SHORT).show();
             return;
         }
-        Item item = new Item(nameStr,weightStr,spinStr,sizeStr, UploadImageToFirebase());
-
-
-        fbs.getFire().collection("Item")
-                .add(item)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Error adding document", e);
-                    }
-                });
-
+        Item item = new Item(nameStr,weightStr,spinStr,sizeStr, photoStr);
+        try {
+            fbs.getFire().collection("Item")
+                    .add(item)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                            ft.replace(R.id.FrameLayoutAnother, new ItemListFragment());
+                            ft.commit();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e(TAG, "Error adding document", e);
+                        }
+                    });
+        }catch (Exception e){
+            Log.e("ddd", e.getMessage());
+        }
 
 
     }

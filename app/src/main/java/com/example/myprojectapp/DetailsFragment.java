@@ -106,6 +106,7 @@ public class DetailsFragment extends Fragment {
 
 
     private void evenToChange() {
+        path = item.getImageUrl();
         DocumentReference documentReference = fbs.getFire().collection("Item").document(path);
         documentReference.get()
                 .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {

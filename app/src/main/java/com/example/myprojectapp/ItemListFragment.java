@@ -96,7 +96,6 @@ public class ItemListFragment extends Fragment {
         ff = FirebaseFirestore.getInstance();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         list = new ArrayList<Item>();
         listPath = new ArrayList<String>();
 
@@ -113,7 +112,7 @@ public class ItemListFragment extends Fragment {
                                 listPath.add(dc.getDocument().getId());
                             }
                         }
-                        itemAdapter= new ItemAdapter(getContext(),list , listPath);
+                        itemAdapter= new ItemAdapter(getActivity(),list , listPath);
                         recyclerView.setAdapter(itemAdapter);
                     }
                 });

@@ -47,7 +47,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         this.listItem = listItem;
         this.itemListpath = itemListpath;
     }
-
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -56,12 +55,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ItemViewHolder holder,  int position) {
 
         Item items = listItem.get(position);
         holder.name.setText(items.getName());
-        //holder.weight.setText(items.getWeight());
-        //holder.size.setText(items.getSize());
+        holder.weight.setText(items.getWeight());
+        holder.size.setText(items.getSize());
         holder.kind.setText(items.getKind());
         fbs = FirebaseServices.getInstance();
 
@@ -69,17 +68,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = ((AppCompatActivity) v.getContext()).getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                DetailsFragment fragment = new DetailsFragment();
-                fragmentTransaction.replace(R.id.ItemListFrameLayout, fragment);
-                fragmentTransaction.addToBackStack(null); // Optional: Add the transaction to the back stack
-                fragmentTransaction.commit();
+                AppCompatActivity activity = (AppCompatActivity) context;
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayoutAnother , new DetailsFragment(itemListpath.get(position))).addToBackStack(null).commit();
             }
         });
 
-        /*StorageReference storageRef= fbs.getStorage().getReference().child(items.getImageUrl());
+        StorageReference storageRef= fbs.getStorage().getReference().child(items.getImageUrl());
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -92,7 +86,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             @Override
             public void onFailure(@NonNull Exception e) {
             }
-        });*/
+        });
     }
     @Override
     public int getItemCount() {
