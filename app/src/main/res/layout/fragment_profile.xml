@@ -10,19 +10,93 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#54A7E8">
+        android:background="#B06CD794">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/nameProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:gravity="center"
-            android:text="Profile Fragment"
-            android:textSize="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="46dp"
+            android:layout_marginBottom="19dp"
+            android:text="TextView"
+            android:textColor="#9913AA"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@+id/emailProfile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/photoProfile" />
+
+        <TextView
+            android:id="@+id/emailProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="TextView"
+            android:textColor="#9913AA"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/numberProfile"
+            app:layout_constraintStart_toStartOf="@+id/nameProfile"
+            app:layout_constraintTop_toBottomOf="@+id/nameProfile" />
+
+        <TextView
+            android:id="@+id/numberProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:text="TextView"
+            android:textColor="#9913AA"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@+id/addressProfile"
+            app:layout_constraintStart_toStartOf="@+id/emailProfile"
+            app:layout_constraintTop_toBottomOf="@+id/emailProfile" />
+
+        <TextView
+            android:id="@+id/addressProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:text="TextView"
+            android:textColor="#9913AA"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@+id/genderProfile"
+            app:layout_constraintStart_toStartOf="@+id/numberProfile"
+            app:layout_constraintTop_toBottomOf="@+id/numberProfile" />
+
+        <TextView
+            android:id="@+id/genderProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="112dp"
+            android:text="TextView"
+            android:textColor="#9913AA"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@+id/logOutProfile"
+            app:layout_constraintStart_toStartOf="@+id/addressProfile"
+            app:layout_constraintTop_toBottomOf="@+id/addressProfile" />
+
+        <ImageView
+            android:id="@+id/photoProfile"
+            android:layout_width="150dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="39dp"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/user"
+            app:layout_constraintBottom_toTopOf="@+id/nameProfile"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/logOutProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="54dp"
+            android:layout_marginBottom="83dp"
+            android:background="#72247C"
+            android:text="log out"
+            android:textColor="#B06CD794"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/genderProfile" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

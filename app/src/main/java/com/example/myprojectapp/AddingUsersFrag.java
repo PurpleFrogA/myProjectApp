@@ -42,12 +42,13 @@ import java.util.UUID;
  * create an instance of this fragment.
  */
 public class AddingUsersFrag extends Fragment {
-    private static final int RESULT_LOAD_IMG = 24;
     private EditText email,phoneNum,address,name;
     private Spinner gender;
     private Button addUser,gotoHomeBtn;
     private ImageView addProfile;
+
     private FirebaseServices fbs;
+    int SELECT_PICTURE = 200;
     String loginemail = FirebaseAuth.getInstance().getCurrentUser().getEmail() ;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -108,36 +109,21 @@ public class AddingUsersFrag extends Fragment {
         phoneNum = getView().findViewById(R.id.adduserPhoneNum);
         gender = getView().findViewById(R.id.addusersGender);
         address =getView().findViewById(R.id.adduserAddress);
-        gotoHomeBtn =getView().findViewById(R.id.addUserFragBack);
         addUser = getView().findViewById(R.id.addusersbtn);
         addProfile = getView().findViewById(R.id.addUserImage);
 
         addProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.setType("image/*");
-                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+                openGalleryAndSelectPhoto();
             }
         });
 
-        gotoHomeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.FrameLayoutMain, new ItemListFragment());
-                ft.commit();
-            }
-        });
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addToFirebaseUser();
                 Toast.makeText(getActivity(), "Your information has been saved", Toast.LENGTH_SHORT).show();
-
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.FrameLayoutMain, new ItemListFragment());
-                ft.commit();
             }
 
         });
@@ -145,21 +131,13 @@ public class AddingUsersFrag extends Fragment {
     @Override
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
-
-
-        if (resultCode == RESULT_OK) {
-            try {
-                final Uri imageUri = data.getData();
-                final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
-                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                addProfile.setImageBitmap(selectedImage);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG).show();
+        if (resultCode == RESULT_OK){
+            if( reqCode ==SELECT_PICTURE){
+                Uri selectedImageUri = data.getData();
+                if(null != selectedImageUri){
+                    addProfile.setImageURI(selectedImageUri);
+                }
             }
-
-        }else {
-            Toast.makeText(getActivity(), "You haven't picked Image",Toast.LENGTH_LONG).show();
         }
     }
     private String UploadImageToFirebase(){
@@ -184,6 +162,13 @@ public class AddingUsersFrag extends Fragment {
         });
         return ref.getPath();
     }
+    void openGalleryAndSelectPhoto(){
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+
+        startActivityForResult(Intent.createChooser(i , "SELECT_PICTURE") , SELECT_PICTURE);
+    }
     private void addToFirebaseUser() {
         String emailStr, phoneNumStr, genderStr,addressStr,nameStr;
         nameStr = name.getText().toString();
@@ -197,17 +182,21 @@ public class AddingUsersFrag extends Fragment {
             return;
         }
         User user = new User(nameStr,emailStr,phoneNumStr,genderStr,addressStr,UploadImageToFirebase());
+        try {
+            fbs.getFire().collection("User").document(loginemail).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Intent i = new Intent(getActivity(), AnotherActivity.class);
+                    startActivity(i);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
 
-        fbs.getFire().collection("User").document(loginemail).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(getActivity(), "done", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
+                }
+            });
+        }catch (Exception e){
+            Log.e("ddd", e.getMessage());
+        }
     }
 }

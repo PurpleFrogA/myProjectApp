@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -52,7 +53,8 @@ public class AddingDataFrag extends Fragment {
     private Button addingBtn,backToHomeBtn;
     private ImageView addPhoto;
     private FirebaseServices fbs;
-
+    String loginemail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+    String itemId = loginemail +"1";
     int SELECT_PICTURE = 200;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -114,7 +116,6 @@ public class AddingDataFrag extends Fragment {
         weight = getView().findViewById(R.id.adddataFragW);
         spinKind = getView().findViewById(R.id.adddataSpinKind);
         spinSize = getView().findViewById(R.id.adddataSpinSize);
-        backToHomeBtn=getView().findViewById(R.id.adddataFragBack);
         addingBtn=getView().findViewById(R.id.adddataBtn);
         addPhoto = getView().findViewById(R.id.adddataImage);
 
@@ -125,14 +126,6 @@ public class AddingDataFrag extends Fragment {
             }
         });
 
-        backToHomeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.FrameLayoutAnother, new ItemListFragment());
-                ft.commit();
-            }
-        });
         addingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,8 +148,6 @@ public class AddingDataFrag extends Fragment {
     }
 
     private String UploadImageToFirebase(){
-
-
         BitmapDrawable bitmapDrawable = (BitmapDrawable) addPhoto.getDrawable();
         Bitmap image = bitmapDrawable.getBitmap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

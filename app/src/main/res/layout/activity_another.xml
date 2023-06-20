@@ -8,8 +8,8 @@
 
     <FrameLayout
         android:id="@+id/FrameLayoutAnother"
-        android:layout_width="411dp"
-        android:layout_height="681dp"
+        android:layout_width="420dp"
+        android:layout_height="676dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +19,7 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        android:layout_width="413dp"
+        android:layout_width="417dp"
         android:layout_height="62dp"
         android:background="#E156B379"
 

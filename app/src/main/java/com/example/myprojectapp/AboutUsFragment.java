@@ -78,7 +78,7 @@ public class AboutUsFragment extends Fragment {
 
     private void takeItEasy() {
         logoutBtn = getView().findViewById(R.id.showDetailsLogoutBtn);
-        profileBtn = getView().findViewById(R.id.showDetailsProfilebtn);
+        //profileBtn = getView().findViewById(R.id.showDetailsProfilebtn);
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,11 +88,11 @@ public class AboutUsFragment extends Fragment {
                 startActivity(i);
             }
         });
-        profileBtn.setOnClickListener(new View.OnClickListener() {
+        /*profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
-        });
+        });*/
     }
 }

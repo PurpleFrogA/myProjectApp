@@ -17,51 +17,55 @@
             android:id="@+id/adddataBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="29dp"
-            android:layout_marginBottom="11dp"
+            android:layout_marginStart="161dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="162dp"
+            android:layout_marginBottom="148dp"
             android:background="#E4862293"
             android:text="add"
             android:textColor="#E156B379"
-            app:layout_constraintBottom_toTopOf="@+id/adddataFragBack"
-            app:layout_constraintStart_toStartOf="@+id/adddataImage"
-            app:layout_constraintTop_toBottomOf="@+id/adddataImage" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adddataSpinKind" />
 
         <EditText
             android:id="@+id/adddataFragName"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="379dp"
+            android:layout_height="59dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="18dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="19dp"
+            android:layout_marginBottom="12dp"
             android:ems="10"
             android:hint="name"
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/adddataFragW"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/adddataImage" />
 
         <Spinner
             android:id="@+id/adddataSpinKind"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="379dp"
+            android:layout_height="59dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="12dp"
             android:entries="@array/arr_kind"
-            app:layout_constraintBottom_toTopOf="@+id/adddataImage"
+            app:layout_constraintBottom_toTopOf="@+id/adddataBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adddataSpinSize" />
 
         <EditText
             android:id="@+id/adddataFragW"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="379dp"
+            android:layout_height="59dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="17dp"
+            android:layout_marginBottom="12dp"
             android:ems="10"
             android:hint="weight"
             android:inputType="number"
@@ -72,40 +76,31 @@
 
         <Spinner
             android:id="@+id/adddataSpinSize"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="379dp"
+            android:layout_height="59dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="26dp"
+            android:layout_marginBottom="12dp"
             android:entries="@array/arr_size"
             app:layout_constraintBottom_toTopOf="@+id/adddataSpinKind"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adddataFragW" />
 
-        <Button
-            android:id="@+id/adddataFragBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="26dp"
-            android:layout_marginBottom="105dp"
-            android:background="#E4862293"
-            android:text="back"
-            android:textColor="#E156B379"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/adddataBtn" />
-
         <ImageView
             android:id="@+id/adddataImage"
-            android:layout_width="147dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="10dp"
+            android:layout_width="120dp"
+            android:layout_height="122dp"
+            android:layout_marginStart="145dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="146dp"
+            android:layout_marginBottom="12dp"
             android:src="@android:drawable/ic_menu_gallery"
-            app:layout_constraintBottom_toTopOf="@+id/adddataBtn"
+            app:layout_constraintBottom_toTopOf="@+id/adddataFragName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/adddataSpinKind" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
