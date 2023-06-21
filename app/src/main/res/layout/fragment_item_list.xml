@@ -3,27 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ItemListFrameLayout"
-    android:layout_width="414dp"
-    android:layout_height="728dp"
+    android:layout_width="391dp"
+    android:layout_height="788dp"
     tools:context=".ItemListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="733dp"
-        android:background="#B06CD794">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemList"
-            android:layout_width="410dp"
-            android:layout_height="683dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            android:layout_width="393dp"
+            android:layout_height="732dp"
+            android:background="#B06CD794"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="2dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>

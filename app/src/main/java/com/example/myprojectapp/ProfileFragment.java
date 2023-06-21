@@ -139,11 +139,11 @@ public class ProfileFragment extends Fragment {
     }
     private void displayItemData(User user) {
         // Access the UI elements in your fragment and update them with the item's data
-        name.setText(user.getName());
-        email.setText(user.getEmail());
-        phoneNum.setText(user.getPhoneNum());
-        address.setText(user.getAddress());
-        gender.setText(user.getGender());
+        name.setText("Name: " + user.getName());
+        email.setText("Email: " + user.getEmail());
+        phoneNum.setText("Phone number: " + user.getPhoneNum());
+        address.setText("Address: " + user.getAddress());
+        gender.setText("Gender: " + user.getGender());
 
         StorageReference storageRef = fbs.getStorage().getReference().child(user.getProfile());
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.StorageReference;
 
 /**
@@ -28,10 +31,15 @@ import com.google.firebase.storage.StorageReference;
  */
 public class DetailsFragment extends Fragment {
     private String path;
-    private FirebaseServices fbs;
     private TextView nameDetails,weightDetails,sizeDetails,kindDetails;
+    private TextView lenderName,lenderPhoneNum,lenderEmail,lenderAddress;
     private ImageView imageDetails;
     Item item;
+    User user;
+    FirebaseFirestore ff;
+    FirebaseServices fbs;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    String loginemail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -88,31 +96,69 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        hi();
+        connectComponents();
     }
 
-    private void hi() {
+    private void connectComponents() {
         nameDetails = getView().findViewById(R.id.detailsFragName);
         weightDetails = getView().findViewById(R.id.detailsFragWeight);
         sizeDetails = getView().findViewById(R.id.detailsFragSize);
         kindDetails = getView().findViewById(R.id.detailsFragKind);
         imageDetails = getView().findViewById(R.id.detailsFragImage);
 
+        lenderName = getView().findViewById(R.id.detailsLenName);
+        lenderPhoneNum = getView().findViewById(R.id.detailsLenPhoneNum);
+        lenderEmail = getView().findViewById(R.id.detailsLenEmail);
+        lenderAddress = getView().findViewById(R.id.detailsLenAddress);
+
         fbs = FirebaseServices.getInstance();
+        ff = FirebaseFirestore.getInstance();
 
 
-        evenToChange();
+        evenToChangeItem();
+    }
+
+    private void evenToChangeUser() {
+        String id = item.getUser();
+            ff.collection("User").document(id)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            User user = documentSnapshot.toObject(User.class);
+                            displayItemData(user);
+                        } else {
+                            Log.d("TAG", "No such document");
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("TAG", "Error retrieving document: " + e.getMessage());
+                    }
+                });
+
+    }
+    private void displayItemData(User user) {
+        // Access the UI elements in your fragment and update them with the item's data
+        lenderName.setText("Name: " + user.getName());
+        lenderEmail.setText("Email: " + user.getEmail());
+        lenderPhoneNum.setText("Phone number: " + user.getPhoneNum());
+        lenderAddress.setText("Address: " + user.getAddress());
     }
 
 
-    private void evenToChange() {
-        path = item.getImageUrl();
+    private void evenToChangeItem() {
+
         DocumentReference documentReference = fbs.getFire().collection("Item").document(path);
         documentReference.get()
                 .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
                     if(documentSnapshot.exists()){
                         item = documentSnapshot.toObject(Item.class);
-                        hearme();
+                        hearmeItem();
+                        evenToChangeUser();
                     } else {
                         System.out.println("Documents doesn't exist");
                     }
@@ -121,18 +167,17 @@ public class DetailsFragment extends Fragment {
                 });
     }
 
-    private void hearme() {
-        nameDetails.setText(item.getName());
-        weightDetails.setText(item.getWeight());
-        sizeDetails.setText(item.getSize());
-        kindDetails.setText(item.getKind());
+    private void hearmeItem() {
+        nameDetails.setText("Name: " + item.getName());
+        weightDetails.setText("Weight: " + item.getWeight());
+        sizeDetails.setText("Size: " + item.getSize());
+        kindDetails.setText("Kind: " + item.getKind());
 
         StorageReference storageReference = fbs.getStorage().getReference().child(item.getImageUrl());
-
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(getContext())
+                Glide.with(getActivity())
                         .load(uri)
                         .into(imageDetails);
             }

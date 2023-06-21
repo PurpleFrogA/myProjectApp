@@ -6,6 +6,16 @@ public class Item {
     private String kind;
     private String size;
     private String imageUrl;
+    private String user;
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -14,12 +24,13 @@ public class Item {
         this.imageUrl = imageUrl;
     }
 
-    public Item(String name, String weight, String kind, String size, String photo) {
+    public Item(String name, String weight, String kind, String size, String photo, String user) {
         this.name = name;
         this.weight = weight;
         this.kind = kind;
         this.size = size;
         this.imageUrl = photo;
+        this.user = user;
     }
     //private String al7aja;
 

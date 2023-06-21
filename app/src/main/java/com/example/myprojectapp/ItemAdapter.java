@@ -59,8 +59,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
         Item items = listItem.get(position);
         holder.name.setText(items.getName());
-        holder.weight.setText(items.getWeight());
-        holder.size.setText(items.getSize());
         holder.kind.setText(items.getKind());
         fbs = FirebaseServices.getInstance();
 
@@ -94,7 +92,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder{
-        TextView name,weight,size,kind;
+        TextView name,kind;
         ImageView image;
 
 
@@ -102,8 +100,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             super(itemView);
 
             name = itemView.findViewById(R.id.tvNameItem);
-            weight= itemView.findViewById(R.id.tvWeightItem);
-            size = itemView.findViewById(R.id.tvSizeItem);
             kind = itemView.findViewById(R.id.tvKindItem);
             image = itemView.findViewById(R.id.ivPhotoItem);
         }

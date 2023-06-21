@@ -10,15 +10,17 @@
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#E156B379">
 
         <ImageView
             android:id="@+id/detailsFragImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="141dp"
-            android:layout_marginTop="81dp"
-            android:layout_marginEnd="148dp"
+            android:layout_width="338dp"
+            android:layout_height="233dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="39dp"
+            app:layout_constraintBottom_toTopOf="@+id/detailsFragName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -26,14 +28,13 @@
 
         <TextView
             android:id="@+id/detailsFragName"
-            android:layout_width="118dp"
+            android:layout_width="351dp"
             android:layout_height="41dp"
-            android:layout_marginStart="106dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="193dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="12dp"
             android:text="name"
-            android:textSize="30dp"
+            android:textSize="25dp"
+            android:textColor="#E4862293"
             app:layout_constraintBottom_toTopOf="@+id/detailsFragWeight"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,14 +42,13 @@
 
         <TextView
             android:id="@+id/detailsFragWeight"
-            android:layout_width="118dp"
+            android:layout_width="351dp"
             android:layout_height="41dp"
-            android:layout_marginStart="106dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="193dp"
-            android:layout_marginBottom="11dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="12dp"
             android:text="weight"
-            android:textSize="30dp"
+            android:textSize="25dp"
+            android:textColor="#E4862293"
             app:layout_constraintBottom_toTopOf="@+id/detailsFragSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,14 +56,13 @@
 
         <TextView
             android:id="@+id/detailsFragSize"
-            android:layout_width="118dp"
+            android:layout_width="351dp"
             android:layout_height="41dp"
-            android:layout_marginStart="106dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="193dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="12dp"
             android:text="size"
-            android:textSize="30dp"
+            android:textSize="25dp"
+            android:textColor="#E4862293"
             app:layout_constraintBottom_toTopOf="@+id/detailsFragKind"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,18 +70,90 @@
 
         <TextView
             android:id="@+id/detailsFragKind"
-            android:layout_width="118dp"
+            android:layout_width="351dp"
             android:layout_height="41dp"
-            android:layout_marginStart="106dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="193dp"
-            android:layout_marginBottom="305dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="33dp"
             android:text="kind"
-            android:textSize="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="25dp"
+            android:textColor="#E4862293"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detailsFragSize" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="296dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="81dp"
+            android:text="Lenders information:"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="#E4862293"
+            app:layout_constraintBottom_toTopOf="@+id/detailsLenName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsFragKind" />
+
+        <TextView
+            android:id="@+id/detailsLenName"
+            android:layout_width="351dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="12dp"
+            android:text="lender name"
+            android:textSize="20dp"
+            android:textColor="#E4862293"
+            app:layout_constraintBottom_toTopOf="@+id/detailsLenPhoneNum"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/detailsLenPhoneNum"
+            android:layout_width="351dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="12dp"
+            android:text="lender phone number"
+            android:textSize="20dp"
+            android:textColor="#E4862293"
+            app:layout_constraintBottom_toTopOf="@+id/detailsLenEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsLenName" />
+
+        <TextView
+            android:id="@+id/detailsLenEmail"
+            android:layout_width="351dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="12dp"
+            android:text="lender email"
+            android:textSize="17dp"
+            android:textColor="#E4862293"
+            app:layout_constraintBottom_toTopOf="@+id/detailsLenAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsLenPhoneNum" />
+
+        <TextView
+            android:id="@+id/detailsLenAddress"
+            android:layout_width="351dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="119dp"
+            android:text="lender address"
+            android:textSize="20dp"
+            android:textColor="#E4862293"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsLenEmail" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

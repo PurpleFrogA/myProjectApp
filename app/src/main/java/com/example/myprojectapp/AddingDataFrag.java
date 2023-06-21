@@ -54,7 +54,6 @@ public class AddingDataFrag extends Fragment {
     private ImageView addPhoto;
     private FirebaseServices fbs;
     String loginemail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-    String itemId = loginemail +"1";
     int SELECT_PICTURE = 200;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -190,7 +189,7 @@ public class AddingDataFrag extends Fragment {
             Toast.makeText(getActivity(), "Some data are incorrect", Toast.LENGTH_SHORT).show();
             return;
         }
-        Item item = new Item(nameStr,weightStr,spinStr,sizeStr, photoStr);
+        Item item = new Item(nameStr,weightStr,spinStr,sizeStr, photoStr,loginemail);
         try {
             fbs.getFire().collection("Item")
                     .add(item)
