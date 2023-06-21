@@ -12,11 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +29,8 @@ import com.google.firebase.auth.AuthResult;
  */
 public class ForgotPasswordFragment extends Fragment {
     private EditText username;
-    private Button forgotPassBt,gotoLogin,gotoSingUp;
+    private Button forgotPassBt;
+    private TextView gotoSignUp;
     private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -80,11 +85,10 @@ public class ForgotPasswordFragment extends Fragment {
         super.onStart();
         fbs = FirebaseServices.getInstance();
         username = getView().findViewById(R.id.etEmailForgotPassFrag);
-        gotoLogin = getView().findViewById(R.id.gotoLoginForgotPass);
-        gotoSingUp = getView().findViewById(R.id.gotoSingUPForgotPass);
         forgotPassBt = getView().findViewById(R.id.forgotPassFragResetBt);
+        gotoSignUp = getView().findViewById(R.id.forgotPassGotoSignUP);
 
-        gotoSingUp.setOnClickListener(new View.OnClickListener() {
+        gotoSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -93,23 +97,27 @@ public class ForgotPasswordFragment extends Fragment {
             }
         });
 
-        gotoLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.FrameLayoutMain, new LoginFragment());
-                ft.commit();
-            }
-        });
         forgotPassBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String usernameStr = username.getText().toString();
+                if(usernameStr.trim().isEmpty()){
+                    Toast.makeText(getActivity(), "please enter your email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!isEmailValid(usernameStr)) {
+                    Toast.makeText(getActivity(), "Email is incorrect", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 fbs.getAuth().sendPasswordResetEmail(username.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
                                     Toast.makeText(getActivity(), "we sent you link to reset password! Check your email", Toast.LENGTH_SHORT).show();
+                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                    ft.replace(R.id.FrameLayoutMain, new LoginFragment());
+                                    ft.commit();
                                 }
                                 else {
                                     Toast.makeText(getActivity(), "Failed. Check the email address you entered", Toast.LENGTH_SHORT).show();
@@ -118,5 +126,11 @@ public class ForgotPasswordFragment extends Fragment {
                         });
             }
         });
+    }
+    public boolean isEmailValid(String st) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(st);
+        return matcher.matches();
     }
 }

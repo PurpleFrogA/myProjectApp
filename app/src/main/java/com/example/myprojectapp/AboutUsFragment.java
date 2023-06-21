@@ -77,17 +77,15 @@ public class AboutUsFragment extends Fragment {
     }
 
     private void takeItEasy() {
-        logoutBtn = getView().findViewById(R.id.showDetailsLogoutBtn);
-        //profileBtn = getView().findViewById(R.id.showDetailsProfilebtn);
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
+        /*logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
                 Intent i = new Intent(getActivity(), MainActivity.class);
                 startActivity(i);
             }
-        });
+        });*/
         /*profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
