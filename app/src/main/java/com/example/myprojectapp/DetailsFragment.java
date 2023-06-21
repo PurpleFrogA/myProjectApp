@@ -169,7 +169,7 @@ public class DetailsFragment extends Fragment {
 
     private void hearmeItem() {
         nameDetails.setText("Name: " + item.getName());
-        weightDetails.setText("Weight: " + item.getWeight());
+        weightDetails.setText("Weight: " + item.getWeight() + "kg");
         sizeDetails.setText("Size: " + item.getSize());
         kindDetails.setText("Kind: " + item.getKind());
 
