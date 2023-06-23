@@ -3,19 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ItemListFrameLayout"
-    android:layout_width="414dp"
-    android:layout_height="730dp"
+    android:layout_width="391dp"
+    android:layout_height="784dp"
     tools:context=".ItemListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="414dp"
-        android:layout_height="730dp">
+        android:layout_width="391dp"
+        android:layout_height="784dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemList"
-            android:layout_width="0dp"
-            android:layout_height="737dp"
-            android:layout_marginStart="1dp"
+            android:layout_width="395dp"
+            android:layout_height="719dp"
             android:layout_marginEnd="1dp"
             android:background="#B06CD794"
             app:layout_constraintBaseline_toBaselineOf="parent"
