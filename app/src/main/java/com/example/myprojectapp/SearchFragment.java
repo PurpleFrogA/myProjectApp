@@ -101,6 +101,8 @@ public class SearchFragment extends Fragment {
         itemList = new ArrayList<Item>();
         listPath = new ArrayList<String>();
 
+        evenChangeListener();
+
         letsGooo();
     }
 
@@ -117,7 +119,7 @@ public class SearchFragment extends Fragment {
                 return true;
             }
         });
-        evenChangeListener();
+
     }
 
     private void filterList(String text) {
