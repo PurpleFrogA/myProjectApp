@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_margin="10dp"
     app:cardBackgroundColor="#E156B379"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp">
@@ -26,8 +26,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name:"
-                android:textSize="26dp"
                 android:textColor="#E4862293"
+                android:textSize="26dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -36,8 +36,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="guitar"
-                android:textSize="20dp"
                 android:textColor="#E4862293"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -46,13 +46,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -64,8 +64,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Kind:"
-                android:textSize="26dp"
                 android:textColor="#E4862293"
+                android:textSize="26dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -74,8 +74,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="music"
-                android:textSize="20dp"
                 android:textColor="#E4862293"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -89,8 +89,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Image:"
-                android:textSize="26dp"
                 android:textColor="#E4862293"
+                android:textSize="26dp"
                 android:textStyle="bold" />
 
             <ImageView

@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BF884DEF"
-    tools:context=".SearchFragment" >
+    android:background="#B06CD794"
+    tools:context=".SearchFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E4862293">
+        android:background="#B06CD794">
 
         <SearchView
             android:id="@+id/searchView"
@@ -19,21 +19,25 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:iconifiedByDefault="false"
-            android:queryHint="Search"
+            android:queryHint="Search..."
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewSearch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ListView
-            android:id="@+id/listViewSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewSearch"
+            android:layout_width="392dp"
+            android:layout_height="667dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

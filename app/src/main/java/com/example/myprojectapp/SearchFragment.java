@@ -2,7 +2,10 @@ package com.example.myprojectapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +13,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
+
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,10 +30,15 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class SearchFragment extends Fragment {
+
+    RecyclerView recyclerViewSearch;
+    private List<Item> itemList;
+    FirebaseFirestore ff;
+    SearchItemAdapter searchItemAdapter;
     SearchView searchView;
-    ListView listView;
-    ArrayList<String> stringArrayList;
-    ArrayAdapter<String> stringArrayAdapter;
+    ArrayList<String> listPath;
+    //ArrayList<Item> list;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -73,24 +89,22 @@ public class SearchFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        searchView = getView().findViewById(R.id.searchView);
+        searchView.clearFocus();
+
+        recyclerViewSearch =getView().findViewById(R.id.recyclerViewSearch);
+        recyclerViewSearch.setHasFixedSize(true);
+        recyclerViewSearch.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        ff = FirebaseFirestore.getInstance();
+        itemList = new ArrayList<Item>();
+        listPath = new ArrayList<String>();
+
         letsGooo();
     }
 
     private void letsGooo() {
-        searchView = getView().findViewById(R.id.searchView);
-        listView = getView().findViewById(R.id.listViewSearch);
-
-        listView.setVisibility(View.GONE);
-
-        stringArrayList = new ArrayList<>();
-        stringArrayList.add("art");
-        stringArrayList.add("music");
-        stringArrayList.add("book");
-
-        stringArrayAdapter = new ArrayAdapter<>(getActivity() , android.R.layout.simple_list_item_1,stringArrayList);
-
-        listView.setAdapter(stringArrayAdapter);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -99,11 +113,44 @@ public class SearchFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                listView.setVisibility(View.VISIBLE);
-                stringArrayAdapter.getFilter().filter(newText);
-                return false;
+                filterList(newText);
+                return true;
             }
         });
-
+        evenChangeListener();
     }
+
+    private void filterList(String text) {
+        List<Item> filteredList = new ArrayList<>();
+        for(Item item : itemList){
+            if(item.getName().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(item);
+            }
+        }
+
+        if(filteredList.isEmpty()){
+            Toast.makeText(getActivity(), "No data found", Toast.LENGTH_SHORT).show();
+        }else{
+            searchItemAdapter.setFilteredList(filteredList);
+        }
+    }
+
+    private void evenChangeListener() {
+        ff.collection("Item")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        for (DocumentChange dc : value.getDocumentChanges()) {
+                            if (dc.getType() == DocumentChange.Type.ADDED) {
+                                //list.add(dc.getDocument().toObject(Item.class));
+                                listPath.add(dc.getDocument().getId());
+                                itemList.add(dc.getDocument().toObject(Item.class));
+                            }
+                        }
+                        searchItemAdapter= new SearchItemAdapter(getActivity(),itemList , listPath);
+                        recyclerViewSearch.setAdapter(searchItemAdapter);
+                    }
+                });
+    }
+
 }
