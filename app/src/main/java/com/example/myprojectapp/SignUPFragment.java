@@ -138,7 +138,7 @@ public class SignUPFragment extends Fragment {
                         }
                         else {
                             Log.e("TAG", task.getException().getMessage());
-                            Toast.makeText(getActivity(), "Field to signed!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Field to signed!check your network", Toast.LENGTH_SHORT).show();
                         }
 
                     }

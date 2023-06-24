@@ -142,7 +142,7 @@ public class LoginFragment extends Fragment {
                         }
                         else {
                             Log.e("TAG", task.getException().getMessage());
-                            Toast.makeText(getActivity(), "Field to login! check your username or password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Field to login! check your username or password or check your network", Toast.LENGTH_SHORT).show();
                         }
 
                     }
